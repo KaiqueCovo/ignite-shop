@@ -1,7 +1,32 @@
-import type { NextPage } from "next";
-import Head from "next/head";
+import "keen-slider/keen-slider.min.css";
 
-const Home: NextPage = () => {
+import { HomeContainer, Product } from "@/styles/pages/home";
+import type { GetStaticProps } from "next";
+import Image from "next/future/image";
+import Head from "next/head";
+import { useKeenSlider } from "keen-slider/react";
+import Stripe from "stripe";
+import { priceFormatterWithCurrency } from "@/utils";
+import { productService } from "@/services";
+import Link from "next/link";
+
+interface HomeProps {
+  products: {
+    id: string;
+    name: string;
+    imageUrl: string;
+    price: string;
+  }[];
+}
+
+export default function Home({ products }: HomeProps) {
+  const [sliderRef] = useKeenSlider({
+    slides: {
+      perView: 3,
+      spacing: 48,
+    },
+  });
+
   return (
     <>
       <Head>
@@ -10,13 +35,40 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-      </main>
+      <HomeContainer ref={sliderRef} className="keen-slider">
+        {products.map((product) => (
+          <Link prefetch={false} key={product.id} href={`/product/${product.id}`}>
+            <Product className="keen-slider__slide">
+              <Image src={product.imageUrl} width={520} height={480} alt="" />
+              <footer>
+                <strong>{product.name}</strong>
+                <span>{product.price}</span>
+              </footer>
+            </Product>
+          </Link>
+        ))}
+      </HomeContainer>
     </>
   );
-};
+}
 
-export default Home;
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await productService.fetchAll();
+
+  const products = data.map((product) => {
+    const price = product.default_price as Stripe.Price;
+
+    return {
+      id: product.id,
+      name: product.name,
+      imageUrl: product.images[0],
+      price: priceFormatterWithCurrency.format(
+        (price.unit_amount as number) / 100
+      ),
+    };
+  });
+  return {
+    props: { products },
+    revalidate: 60 * 60 * 2, // 2 hours
+  };
+};
