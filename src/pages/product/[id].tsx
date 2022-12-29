@@ -5,9 +5,9 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import Stripe from "stripe";
 import Image from 'next/image'
-import axios from "axios";
 import { useState } from "react";
 import { checkoutService } from "@/services/stripe/checkout";
+import Head from "next/head";
 
 interface ProductProps {
   product: {
@@ -42,7 +42,12 @@ export default function Product({ product }: ProductProps) {
   }
 
   return (
-    <ProductContainer>
+    <>
+      <Head>
+        <title>{product.name} | Ignite Shop</title>
+      </Head>
+
+      <ProductContainer>
       <ImageContainer>
         <Image src={product.imageUrl} width={520} height={480} alt="" />
       </ImageContainer>
@@ -59,6 +64,7 @@ export default function Product({ product }: ProductProps) {
         </button>
       </ProductDetails>
     </ProductContainer>
+    </>
   )
 }
 
