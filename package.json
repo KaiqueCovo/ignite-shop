@@ -12,24 +12,25 @@
   },
   "dependencies": {
     "@stitches/react": "^1.2.8",
-    "keen-slider": "^6.8.2",
-    "next": "12.3.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "stripe": "^10.14.0"
+    "axios": "^1.2.2",
+    "keen-slider": "^6.8.5",
+    "next": "^13.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "stripe": "^11.5.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.1.2",
-    "@commitlint/config-conventional": "^17.1.0",
-    "@types/node": "18.8.4",
-    "@types/react": "18.0.21",
-    "@types/react-dom": "18.0.6",
-    "commitizen": "^4.2.5",
-    "cz-conventional-changelog": "3.3.0",
-    "eslint": "8.25.0",
-    "eslint-config-next": "12.3.1",
-    "husky": "^8.0.1",
-    "typescript": "4.8.4"
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
+    "commitizen": "^4.2.6",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.30.0",
+    "eslint-config-next": "^13.1.1",
+    "husky": "^8.0.2",
+    "typescript": "^4.9.4"
   },
   "config": {
     "commitizen": {
