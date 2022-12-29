@@ -2,7 +2,7 @@ import "keen-slider/keen-slider.min.css";
 
 import { HomeContainer, Product } from "@/styles/pages/home";
 import type { GetStaticProps } from "next";
-import Image from "next/future/image";
+import Image from "next/image";
 import Head from "next/head";
 import { useKeenSlider } from "keen-slider/react";
 import Stripe from "stripe";
